@@ -1,0 +1,82 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  flex-grow: 0;
+
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(180deg, var(--clr-base800a00) 0%, var(--clr-base800a60) 20%, var(--clr-base800) 95%);
+    bottom: 0;
+    height: 7rem;
+    width: 100%;
+    pointer-events: none;
+  }
+}
+
+.header {
+  background-color: var(--clr-base500);
+  padding: var(--body-padding);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .menu__btn {
+    background-color: transparent;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__username {
+    flex: 1;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+}
+
+.header__avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  margin-right: 2%;
+}
+
+.calendar_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--body-padding);
+  
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--clr-base100);
+  }
+}

@@ -1,0 +1,15 @@
+.point_card_list {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  flex: 1;
+  flex-grow: 0;
+  flex-shrink: 1;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  gap: 0.75rem;
+
+  padding: var(--body-padding);
+}
