@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { JoggingSvg } from '../assets/illustrations/jogging'
 import { ActionButton } from '../components/Button/ActionButton'
 import styles from '../styles/Home.module.scss'

@@ -6,14 +6,14 @@ import { HorizontalCalendar } from '../components/HorizontalCalendar/HorizontalC
 import { PointCardList } from '../components/PointCard/PointCardList';
 import styles from '../styles/Dashboard.module.scss';
 import { FiMenu } from 'react-icons/fi'
-import Link from 'next/link';
+import { PointForm } from '../components/PointForm/PointForm';
 import { Header } from '../components/Header/Header';
 
-interface DashboardPageProps{
+interface NewExerciseLogPageProps{
 
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = ({}) => {
+const NewExerciseLogPage: React.FC<NewExerciseLogPageProps> = ({}) => {
   return (
   <div className={styles.container}>
     <Head>
@@ -25,21 +25,14 @@ const DashboardPage: React.FC<DashboardPageProps> = ({}) => {
     <Header />
 
     <main className={styles.main}>
-      <div className={styles.calendar_container}>
-        <h1>Projeto Verão</h1> {/* TODO - From Backend */}
-        <HorizontalCalendar selectedDay={dayjs()}/>
-      </div>
-
-      <PointCardList />
+      <PointForm id="new_exercise_log__form"/>
     </main>
 
-    <Link href="/new">
-      <ActionButton>
-        <span>+ Adicionar Exercício</span>
-      </ActionButton>
-    </Link>
+    <ActionButton type="submit" form="new_exercise_log__form">
+      <span>Salvar</span>
+    </ActionButton>
   </div>
   );
 }
 
-export default DashboardPage;
+export default NewExerciseLogPage;

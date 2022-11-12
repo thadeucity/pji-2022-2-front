@@ -1,0 +1,70 @@
+.new_exercise__form {
+  padding: var(--body-padding);
+
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+
+  padding-bottom: 7rem;
+  
+  > ul {
+    background-color: var(--clr-base500);
+    padding: var(--body-padding);
+    border-radius: 0.5rem;
+    max-height: calc(100vh - var(--body-padding) - 105px - 7rem);
+    overflow-y: auto;
+  }
+}
+
+.input__wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.25rem 0;
+
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input[type=number] { 
+    -moz-appearance: textfield;
+    appearance: textfield;
+    margin: 0; 
+  }
+
+  input:not(:placeholder-shown) {
+    border-color: var(--clr-primary);
+  }
+}
+
+.input__wrapper + .input__wrapper {
+  border-top: 2px solid var(--clr-base400);
+}
+
+.exercise__name, .exercise__points {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--clr-base100);
+}
+
+.exercise__points {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--clr-base400);
+  height: 2rem;
+  width: 5rem;
+  border-radius: 0.5rem;
+
+  text-align: center;
+
+  border: 2px solid var(--clr-base400);
+
+
+}
+
