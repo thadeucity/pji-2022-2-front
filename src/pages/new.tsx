@@ -2,10 +2,8 @@ import dayjs from 'dayjs';
 import Head from 'next/head';
 import React from 'react'
 import { ActionButton } from '../components/Button/ActionButton';
-import { HorizontalCalendar } from '../components/HorizontalCalendar/HorizontalCalendar';
-import { PointCardList } from '../components/PointCard/PointCardList';
 import styles from '../styles/Dashboard.module.scss';
-import { FiMenu } from 'react-icons/fi'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { PointForm } from '../components/PointForm/PointForm';
 import { Header } from '../components/Header/Header';
 
@@ -35,4 +33,5 @@ const NewExerciseLogPage: React.FC<NewExerciseLogPageProps> = ({}) => {
   );
 }
 
-export default NewExerciseLogPage;
+export default withPageAuthRequired(NewExerciseLogPage);
+

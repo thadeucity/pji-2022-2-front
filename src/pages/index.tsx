@@ -1,10 +1,22 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { JoggingSvg } from '../assets/illustrations/jogging'
 import { ActionButton } from '../components/Button/ActionButton'
 import styles from '../styles/Home.module.scss'
+import { useUser } from '@auth0/nextjs-auth0';
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
+  const { user } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!!user?.email) {
+      router.push('/dashboard');
+    }
+  }, [router, user?.email])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,9 +45,11 @@ const Home: NextPage = () => {
         </p>
       </main>
 
-      <ActionButton>
-        <span>INICIAR</span>
-      </ActionButton>
+      <a href="/api/auth/login">
+        <ActionButton>
+          <span>INICIAR</span>
+        </ActionButton>
+      </a>
     </div>
   )
 }

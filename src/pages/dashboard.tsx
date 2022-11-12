@@ -5,7 +5,7 @@ import { ActionButton } from '../components/Button/ActionButton';
 import { HorizontalCalendar } from '../components/HorizontalCalendar/HorizontalCalendar';
 import { PointCardList } from '../components/PointCard/PointCardList';
 import styles from '../styles/Dashboard.module.scss';
-import { FiMenu } from 'react-icons/fi'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { Header } from '../components/Header/Header';
 
@@ -42,4 +42,4 @@ const DashboardPage: React.FC<DashboardPageProps> = ({}) => {
   );
 }
 
-export default DashboardPage;
+export default withPageAuthRequired(DashboardPage);
