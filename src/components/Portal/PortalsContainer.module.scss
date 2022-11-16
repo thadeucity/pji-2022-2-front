@@ -1,0 +1,21 @@
+.portal__container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+
+  *,
+  &::before,
+  &::after,
+  *::before,
+  *::after {
+    pointer-events: all;
+  }
+}
+
+.modal {
+  z-index: 99999;
+}
