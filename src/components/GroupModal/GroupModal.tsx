@@ -1,29 +1,46 @@
-import Link from 'next/link';
 import React from 'react'
-import { FiCalendar, FiLogOut, FiUsers } from 'react-icons/fi';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../Button/Button';
 import { Portal } from '../Portal';
 
 import styles from './GroupModal.module.scss';
+import { groupFormSchema } from './GroupForm.schema';
+import { enterGroup } from '../../io/group';
 
 interface GroupModalProps{
   isOpen: boolean
   onClose: () => void
+  currentGroup?: string
 }
 
-export const GroupModal: React.FC<GroupModalProps> = ({isOpen, onClose}) => {
+interface GroupFormData {
+  name: string
+}
+
+export const GroupModal: React.FC<GroupModalProps> = ({isOpen, onClose, currentGroup}) => {
+  const { register, handleSubmit } = useForm<GroupFormData>({
+    resolver: yupResolver(groupFormSchema),
+    defaultValues: {name: currentGroup}
+  });
+
+  const onSubmit = async (data: GroupFormData) => {
+    const response = await enterGroup(data.name || '');
+
+    console.log({response});
+  }
 
   if (!isOpen) return null
 
   return (
     <Portal selector='__MODALS_PORTAL__'>
-      <div className={styles.group__modal}>
+      <form className={styles.group__modal} onSubmit={handleSubmit(onSubmit)}>
         <button className={styles.close_btn} onClick={onClose}/>
         <div className={styles.group__modal__content}>
-          <input size={1}/>
-          <Button>Criar / Entrar no Grupo</Button>
+          <input size={1} placeholder="nome do grupo" {...register('name')}/>
+          <Button type='submit'>Criar / Entrar no Grupo</Button>
         </div>
-      </div>
+      </form>
     </Portal>
   );
 }
