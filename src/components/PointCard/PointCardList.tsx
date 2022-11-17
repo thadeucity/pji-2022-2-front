@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { mockedPoints } from './MockedPoints';
 import { PointCard } from './PointCard';
+import { useDateActivities } from '../../io/activities'
 
 import styles from './PointCardList.module.scss'
 
@@ -15,9 +16,17 @@ export const PointCardList: React.FC<PointCardListProps> = ({}) => {
     setSelected(curr => newSelection === curr ? null : newSelection);
   }, []);
 
+  const {isLoading, queriedResponse} = useDateActivities('2020-01-01'); 
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  console.log({queriedResponse});
+
   return (
     <ol className={styles.point_card_list}>
-      {mockedPoints.map((user) => (
+      {queriedResponse.map((user) => (
         <PointCard
           name={user.name}
           points={user.points}
