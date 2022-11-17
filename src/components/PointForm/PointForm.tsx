@@ -3,14 +3,38 @@ import { AVAILABLE_EXERCISES_ARRAY } from '../../consts/exercises';
 import { useForm } from "react-hook-form";
 
 import styles from './PointForm.module.scss'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { pointFormSchema } from './PointForm.schema';
+import { assignActivityToDate } from '../../io/activity';
+
+interface ActivityFormProps extends Record<string, number> {
+  push_ups: number
+  pull_ups: number
+  burpees: number
+  sit_ups: number
+  running: number
+  rope: number
+  squats: number
+  leg_lifts: number
+  swimming: number
+  climbing: number
+}
 
 interface PointFormProps extends FormHTMLAttributes<HTMLFormElement> {
   children?: never
 }
 
 export const PointForm: React.FC<PointFormProps> = ({...rest}) => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const { register, handleSubmit } = useForm<ActivityFormProps>({
+    resolver: yupResolver(pointFormSchema),
+  });
+
+  const onSubmit = (data: ActivityFormProps) => {
+    const _res = assignActivityToDate({
+      date: new Date().toISOString().slice(0, 10),
+      exercises: data
+    });
+  };
 
   return (
     <form className={styles.new_exercise__form} onSubmit={handleSubmit(onSubmit)} {...rest}>
