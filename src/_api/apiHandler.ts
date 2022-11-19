@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 type MethodTypes = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -9,7 +10,7 @@ type MethodFn = (
 
 export const apiHandler = (methods: {
   [key in MethodTypes]?: MethodFn
-}) => (req: NextApiRequest, res: NextApiResponse) => {
+}) => withApiAuthRequired(async (req: NextApiRequest, res: NextApiResponse) => {
   const listedMethods = Object.keys(methods) as MethodTypes[];
   
   if (!listedMethods.includes(req.method as MethodTypes)) {
@@ -19,4 +20,4 @@ export const apiHandler = (methods: {
   }
 
   return methods[req.method as MethodTypes]!(req, res);
-}
+})

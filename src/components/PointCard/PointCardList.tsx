@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { mockedPoints } from './MockedPoints';
 import { PointCard } from './PointCard';
 import { useDateActivities } from '../../io/activities'
 
@@ -22,11 +21,9 @@ export const PointCardList: React.FC<PointCardListProps> = ({}) => {
     return <div>Loading...</div>
   }
 
-  console.log({queriedResponse});
-
   return (
     <ol className={styles.point_card_list}>
-      {queriedResponse.map((user) => (
+      {queriedResponse.map((user: any) => (
         <PointCard
           name={user.name}
           points={user.points}

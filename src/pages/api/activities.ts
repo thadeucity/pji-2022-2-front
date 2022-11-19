@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { apiHandler } from "../../_api/apiHandler"
+import { getSession } from '@auth0/nextjs-auth0';
 
 const getDateActivities = async (
   req: NextApiRequest,
