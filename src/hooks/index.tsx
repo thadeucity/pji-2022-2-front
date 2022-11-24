@@ -5,6 +5,7 @@ import { queryClient } from '../io/queryClient'
 
 import { AppMenuProvider } from './useAppMenu'
 import { GroupModalProvider } from './useGroupModal';
+import { AppUserProvider } from './user';
 
 interface AppProviderProps {
   children: React.ReactNode
@@ -13,11 +14,13 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => (
   <QueryClientProvider client={queryClient}>
     <UserProvider>
-      <GroupModalProvider>
-        <AppMenuProvider>
-          {children}
-        </AppMenuProvider>
-      </GroupModalProvider>
+      <AppUserProvider>
+        <GroupModalProvider>
+          <AppMenuProvider>
+            {children}
+          </AppMenuProvider>
+        </GroupModalProvider>
+      </AppUserProvider>
     </UserProvider>
   </QueryClientProvider>
 )

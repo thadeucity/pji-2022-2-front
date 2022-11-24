@@ -6,7 +6,7 @@ type CountingTypesLabels = Record<CountingTypes, {
   suffix: string
 }>;
 
-const EXERCISES_TYPES_LABELS: CountingTypesLabels = {
+export const EXERCISES_TYPES_LABELS: CountingTypesLabels = {
   reps: {
     longLabel: 'Repetições',
     shortLabel: 'Rep',
@@ -41,3 +41,16 @@ export const AVAILABLE_EXERCISES_ARRAY = Object.entries(AVAILABLE_EXERCISES)
   .map(([key, val]) => ({ 
     value: key, typeLabel: EXERCISES_TYPES_LABELS[val.type] || '', ...val 
   }))
+
+export const EXERCISES_POINTS_MULTIPLIER = {
+  push_ups: 15,
+  pull_ups: 30,
+  burpees: 10,
+  sit_ups: 8,
+  running: 2,
+  rope: 15,
+  squats: 9,
+  leg_lifts: 7,
+  swimming: 15,
+  climbing: 5,
+}

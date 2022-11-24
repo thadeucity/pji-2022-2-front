@@ -5,10 +5,9 @@ import {
 
 const exerciseSchema = (name: string) => {
   return yupNumber()
-    .transform(value => (!Number(value) ? 0 : Number(value)))
+    .default('0')
     .typeError(`${name} deve ser um número`)
     .min(0, `${name} deve ser maior ou igual a 0`)
-    .required(`${name} é obrigatório`)
 }
 
 export const pointFormSchema = yupObject().shape({

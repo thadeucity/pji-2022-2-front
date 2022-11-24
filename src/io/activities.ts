@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "react-query";
+import { AVAILABLE_EXERCISES, EXERCISES_TYPES_LABELS } from "../consts/exercises";
 import { pjiApiInstance } from "./_pjiApi";
 
 interface GetDateActivitiesProps {
@@ -13,8 +14,27 @@ export const getDateActivities = async ({
     { withAuth: true }
   ).get('/activities', { date });
 
+  const parsedActivities = (res?.data || []).map((userActivity: any) => {
+    const userExercises = userActivity.exercises || {}
+
+    return {
+      ...userActivity,
+      exercises: Object.keys(userExercises).map(exercise => {
+        const exerciseData = AVAILABLE_EXERCISES[exercise] || {}
+        const exerciseSuffix = EXERCISES_TYPES_LABELS[exerciseData?.type || '-']?.shortLabel || '' 
+        return {
+          label: AVAILABLE_EXERCISES[exercise]?.label || '',
+          val: userExercises[exercise],
+          suffix: exerciseSuffix,
+        }
+      }).filter(exercise => exercise.val > 0 && !!exercise.label),
+    }
+  })
+
+  console.log({parsedActivities})
+
   return {
-    res: res.data,
+    res: parsedActivities,
     error,
   }
 }

@@ -26,6 +26,8 @@ export const GroupModal: React.FC<GroupModalProps> = ({isOpen, onClose, currentG
 
   const onSubmit = async (data: GroupFormData) => {
     const response = await enterGroup(data.name || '');
+
+    console.log(response);
   }
 
   if (!isOpen) return null
