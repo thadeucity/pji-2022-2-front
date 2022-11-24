@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { PointCard } from './PointCard';
 import { useDateActivities } from '../../io/activities'
+import dayjs from 'dayjs'
 
 import styles from './PointCardList.module.scss'
 
@@ -15,7 +16,7 @@ export const PointCardList: React.FC<PointCardListProps> = ({}) => {
     setSelected(curr => newSelection === curr ? null : newSelection);
   }, []);
 
-  const {isLoading, queriedResponse} = useDateActivities('2020-01-01'); 
+  const {isLoading, queriedResponse} = useDateActivities(dayjs().format('YYYY-MM-DD')); 
 
   if (isLoading) {
     return <div>Loading...</div>

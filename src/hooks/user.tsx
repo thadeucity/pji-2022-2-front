@@ -20,6 +20,7 @@ const AppUserProvider: React.FC<{children: React.ReactNode}> = ({
   useEffect(() => {
     whoIAm().then(({res}) => {
       if(res) {
+        console.log({res})
         setIsReady(true);
         setGroupId(res.groupId);
       }
@@ -27,7 +28,7 @@ const AppUserProvider: React.FC<{children: React.ReactNode}> = ({
   }, []);
 
   return (
-    <AppUserContext.Provider value={{isReady, groupId: ''}}>
+    <AppUserContext.Provider value={{isReady, groupId}}>
       {children}
     </AppUserContext.Provider>
   );

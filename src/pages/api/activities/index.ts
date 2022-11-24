@@ -43,7 +43,7 @@ const getDateActivities = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const { date, groupId } = req.query
+  const { date, group } = req.query
 
   if (!date) {
     return res.status(400).json({
@@ -51,27 +51,41 @@ const getDateActivities = async (
     })
   }
 
-  const usersExercisesResData = await fauna.query<ExerciseDataType[]>(
+  // const queryRes = await fauna.query<{data: ExerciseDataType[]}>(
+  //   q.Paginate(
+  //     q.Match(
+  //       q.Index("activities_by_group_and_date"), 
+  //       q.Select(
+  //         'ref', 
+  //         q.Get(q.Ref(q.Collection('groups'), group))
+  //       ),
+  //       date
+  //     )
+  //   )
+  // ).catch((e) => {
+  //   return {data: [] as ExerciseDataType[]}
+  // })
+
+  const queryRes = await fauna.query<{data: ExerciseDataType[]}>(
+   q.Map( 
     q.Paginate(
       q.Match(
         q.Index("activities_by_group_and_date"), 
         q.Select(
           'ref', 
-          q.Get(q.Ref(q.Collection('groups'), groupId))
+          q.Get(q.Ref(q.Collection('groups'), group))
         ),
         date
-      )
-    )
-  ).catch((e) => {
-    return [] as ExerciseDataType[]
+      )),
+    q.Lambda("activity", q.Get(q.Var("activity")))
+  )).catch((e) => {
+    return {data: [] as ExerciseDataType[]}
   })
-
-  console.log({usersExercisesResData})
 
 
   const mokedUsersWithExercises = createUsersExercisesForDate(String(date))
 
-  const parsedUsers = usersExercisesResData.map((userExercise) => {
+  const parsedUsers = queryRes.data.map((userExercise) => {
     return {
       name: userExercise.data.name,
       email: userExercise.data.email,

@@ -11,7 +11,7 @@ type User = {
   }
   data: {
     email: string;
-    groupRef: string;
+    groupRef: any;
   }
 }
 
@@ -32,7 +32,8 @@ const putMe = async (
       q.Match(
         q.Index('user_by_email'),
         q.Casefold(session?.user?.email)
-      )
+      ),
+
     )
   ).catch(() => null)
 
@@ -47,7 +48,7 @@ const putMe = async (
   
   return res.json({ 
     email: user?.data?.email || '', 
-    groupRef: user?.data?.groupRef || '' 
+    groupId: user?.data?.groupRef?.id || '' 
   })
 }
 
