@@ -21,7 +21,10 @@ export const Header: React.FC<HeaderProps> = () => {
       />
     </div>
     <b className={styles.header__username}>{user?.name || ''}</b>
-    <button className={`highlight-text ${styles.menu__btn}`} onClick={toggleMenu}>
+    <button 
+      className={`highlight-text ${styles.menu__btn}`} 
+      onClick={() => toggleMenu(true)}
+    >
       <FiMenu />
     </button>
   </header>
