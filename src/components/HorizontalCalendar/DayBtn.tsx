@@ -6,10 +6,10 @@ import styles from './DayBtn.module.scss'
 interface DayBtnProps{
   day: Dayjs;
   selected: boolean;
-  onClick: (day: Dayjs) => void;
+  onClick: (day: string) => void;
 }
 
-export const DayBtn: React.FC<DayBtnProps> = ({ day, selected }) => {
+export const DayBtn: React.FC<DayBtnProps> = ({ day, selected, onClick }) => {
   const isFutureDay = useMemo(() => {
     return day.isAfter(new Date(), 'day')
   }, [day]);
@@ -21,7 +21,11 @@ export const DayBtn: React.FC<DayBtnProps> = ({ day, selected }) => {
   console.log()
 
   return (
-    <button className={`${styles.day_btn} ${selected ? styles.active : ''} ${isFutureDay ? styles.disabled : ''}`}>
+    <button 
+      className={`${styles.day_btn} ${selected ? styles.active : ''} ${isFutureDay ? styles.disabled : ''}`}
+      type="button"
+      onClick={() => !isFutureDay && onClick(day.format('YYYY-MM-DD'))}
+    >
       <span>
         {day.format('D')}
       </span>

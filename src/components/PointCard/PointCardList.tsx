@@ -6,17 +6,17 @@ import dayjs from 'dayjs'
 import styles from './PointCardList.module.scss'
 
 interface PointCardListProps{
-
+  date: string;
 }
 
-export const PointCardList: React.FC<PointCardListProps> = ({}) => {
+export const PointCardList: React.FC<PointCardListProps> = ({date}) => {
   const [selected, setSelected] = React.useState<string | null>(null);
 
   const onSelect = useCallback((newSelection: string) => {
     setSelected(curr => newSelection === curr ? null : newSelection);
   }, []);
 
-  const {isLoading, queriedResponse} = useDateActivities(dayjs().format('YYYY-MM-DD')); 
+  const {isLoading, queriedResponse} = useDateActivities(dayjs().format(date)); 
 
   if (isLoading) {
     return <div>Loading...</div>

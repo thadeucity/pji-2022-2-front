@@ -8,12 +8,17 @@ import styles from '../styles/Dashboard.module.scss';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { Header } from '../components/Header/Header';
+import { useAppUser } from '../hooks/user';
 
 interface DashboardPageProps{
 
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = ({}) => {
+  const {groupName} = useAppUser()
+
+  const [date, setDate] = React.useState(dayjs().format('YYYY-MM-DD'));
+
   return (
   <div className={styles.container}>
     <Head>
@@ -26,11 +31,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({}) => {
 
     <main className={styles.main}>
       <div className={styles.calendar_container}>
-        <h1>Projeto Verão</h1> {/* TODO - From Backend */}
-        <HorizontalCalendar selectedDay={dayjs()}/>
+        <h1>{groupName || ''}</h1>
+        <HorizontalCalendar selectedDay={date} onChange={setDate}/>
       </div>
 
-      <PointCardList />
+      <PointCardList date={date}/>
     </main>
 
     <Link href="/new">

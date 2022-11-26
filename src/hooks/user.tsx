@@ -1,14 +1,18 @@
-import React, {createContext, use, useContext, useEffect, useState} from 'react';
+import React, {createContext, use, useCallback, useContext, useEffect, useState} from 'react';
 import { whoIAm } from '../io/me';
 
 interface AppUserContextData {
   groupId: string;
   isReady: boolean;
+  groupName: string;
+  refreshUser: () => void;
 }
 
 const AppUserContext = createContext<AppUserContextData>({
   groupId: '',
+  groupName: '',
   isReady: false,
+  refreshUser: () => null,
 });
 
 const AppUserProvider: React.FC<{children: React.ReactNode}> = ({
@@ -16,19 +20,30 @@ const AppUserProvider: React.FC<{children: React.ReactNode}> = ({
 }) => {
   const [isReady, setIsReady] = useState(false);
   const [groupId, setGroupId] = useState('');
+  const [groupName, setGroupName] = useState('');
 
   useEffect(() => {
     whoIAm().then(({res}) => {
       if(res) {
-        console.log({res})
         setIsReady(true);
         setGroupId(res.groupId);
+        setGroupName(res.groupName);
       }
     });	
   }, []);
 
+  const refreshUser = useCallback(() => {
+    whoIAm().then(({res}) => {
+      if(res) {
+        setIsReady(true);
+        setGroupId(res.groupId);
+        setGroupName(res.groupName);
+      }
+    });	
+  }, [])
+
   return (
-    <AppUserContext.Provider value={{isReady, groupId}}>
+    <AppUserContext.Provider value={{isReady, groupId, groupName, refreshUser}}>
       {children}
     </AppUserContext.Provider>
   );

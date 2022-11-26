@@ -45,9 +45,14 @@
 }
 
 .exercise__name, .exercise__points {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.675rem;
+  font-weight: 400;
   color: var(--clr-base100);
+  
+  span:first-of-type {
+    font-weight: 500;
+    font-size: 1rem;
+  }
 }
 
 .exercise__points {
@@ -62,6 +67,7 @@
   border-radius: 0.5rem;
 
   text-align: center;
+  font-size: 1rem;
 
   border: 2px solid var(--clr-base400);
 

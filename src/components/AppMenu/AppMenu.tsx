@@ -1,19 +1,17 @@
 import Link from 'next/link';
 import React from 'react'
 import { FiCalendar, FiLogOut, FiUsers } from 'react-icons/fi';
-import { useGroupModal } from '../../hooks/useGroupModal';
 import { Portal } from '../Portal';
 
 import styles from './AppMenu.module.scss';
 
 interface AppMenuProps{
   isOpen: boolean
+  onOpenGroupModal: () => void
   onClose: () => void
 }
 
-export const AppMenu: React.FC<AppMenuProps> = ({isOpen, onClose}) => {
-  const { toggleMenu: toggleGroupModal } = useGroupModal()
-
+export const AppMenu: React.FC<AppMenuProps> = ({isOpen, onClose, onOpenGroupModal}) => {
   if (!isOpen) return null
 
   return (
@@ -29,7 +27,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({isOpen, onClose}) => {
               </li>
               <li>
                 <FiUsers />
-                <button onClick={toggleGroupModal}>Grupo</button>
+                <button onClick={onOpenGroupModal}>Grupo</button>
               </li>
               <li>
                 <FiLogOut />

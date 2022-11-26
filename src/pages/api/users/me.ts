@@ -15,6 +15,15 @@ type User = {
   }
 }
 
+type Group = {
+  ref: {
+    id: string;
+  }
+  data: {
+    name: string;
+  }
+}
+
 const putMe = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -33,8 +42,11 @@ const putMe = async (
         q.Index('user_by_email'),
         q.Casefold(session?.user?.email)
       ),
-
     )
+  ).catch(() => null)
+
+  const group = await fauna.query<Group>(
+    q.Get(q.Ref(q.Collection('groups'), user?.data?.groupRef?.id))
   ).catch(() => null)
 
   if (!user) {
@@ -48,7 +60,8 @@ const putMe = async (
   
   return res.json({ 
     email: user?.data?.email || '', 
-    groupId: user?.data?.groupRef?.id || '' 
+    groupId: user?.data?.groupRef?.id || '',
+    groupName: group?.data?.name || ''
   })
 }
 

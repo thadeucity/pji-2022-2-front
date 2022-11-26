@@ -51,21 +51,6 @@ const getDateActivities = async (
     })
   }
 
-  // const queryRes = await fauna.query<{data: ExerciseDataType[]}>(
-  //   q.Paginate(
-  //     q.Match(
-  //       q.Index("activities_by_group_and_date"), 
-  //       q.Select(
-  //         'ref', 
-  //         q.Get(q.Ref(q.Collection('groups'), group))
-  //       ),
-  //       date
-  //     )
-  //   )
-  // ).catch((e) => {
-  //   return {data: [] as ExerciseDataType[]}
-  // })
-
   const queryRes = await fauna.query<{data: ExerciseDataType[]}>(
    q.Map( 
     q.Paginate(
