@@ -1,6 +1,6 @@
 import { createIoInstance } from "../providers/ioProvider";
 
-const PJI_API_URL = 'http://localhost:3000/api';
+const PJI_API_URL = process.env.PJI_API_URL || '';
 
 interface PjiApiInstanceProps {
   withAuth: boolean
